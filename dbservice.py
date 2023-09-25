@@ -39,6 +39,21 @@ print(sales)
 #create a repository called sales_system 
 
 #you can use string formating on cursor.execute(f"select * from {p}")
+conn=psycopg2.connect(database="my_duka", user='postgres', password='@Carol#2023',host='localhost', port= '5432')
+def insert_data(table_name,columns, values):
+    try:
+        cursor = conn.cursor()
+        placeholders= ','.join(['%s'] * len(values))
+        insert_query= f"INSERT INTO {table_name} ({','.join(columns)}) VALUES ({placeholders})"
+        cursor.execute(insert_query, values)
+        conn.commit()
+        print(f"Data inserted into {table_name} successfully")
+    except (Exception, psycopg2.Error) as error:
+        print(f"Failed to insert into {table_name}: {error}")
+    finally:
+        conn.close()
+columns= ('productname', 'buying_price', 'selling_price', 'stock_quantity')
+values= ('maize', 120, 220, 500)
 
-    
-
+insert_data('sales', columns, values)
+conn.close()
