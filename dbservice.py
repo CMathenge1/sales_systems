@@ -1,4 +1,26 @@
 import psycopg2
+from flask import Flask, render_template
+app=Flask(__name__)
+
+
+@app.route("/")
+def sales_system():
+    return render_template("index.html")
+
+@app.route("/dashboard")
+def dashboad():
+    return render_template("dashboard.html")
+
+@app.route("/products")
+def products():
+    return render_template("products.html")
+
+@app.route("/sales")
+def sales():
+    return render_template("sales.html")
+
+app.run()
+
 # conn=psycopg2.connect(
 #     database="my_duka", user='postgres', password='@Carol#2023',
 #     host='localhost', port= '5432'
@@ -57,3 +79,4 @@ values= ('maize', 120, 220, 500)
 
 insert_data('sales', columns, values)
 conn.close()
+
