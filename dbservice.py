@@ -1,30 +1,10 @@
 import psycopg2
-from flask import Flask, render_template
-app=Flask(__name__)
 
 
-@app.route("/")
-def sales_system():
-    return render_template("index.html")
-
-@app.route("/dashboard")
-def dashboad():
-    return render_template("dashboard.html")
-
-@app.route("/products")
-def products():
-    return render_template("products.html")
-
-@app.route("/sales")
-def sales():
-    return render_template("sales.html")
-
-app.run()
-
-# conn=psycopg2.connect(
-#     database="my_duka", user='postgres', password='@Carol#2023',
-#     host='localhost', port= '5432'
-# )
+conn=psycopg2.connect(
+    database="my_duka", user='postgres', password='@Carol#2023',
+    host='localhost', port= '5432'
+)
 # #Creating a cursor object using the cursor() method
 # cursor = conn.cursor()
 
@@ -42,26 +22,24 @@ app.run()
 #take in table_name as argument, fetches all records, return list of records
 
 def get_data(p):
-    conn=psycopg2.connect(
-    database="my_duka", user='postgres', password='@Carol#2023',
-    host='localhost', port= '5432')
+   
     cursor = conn.cursor()
     t="select * from "+ ""+p
     cursor.execute(t)
     list_of_records= cursor.fetchall()
     return list_of_records
 
-prods= get_data("products")
-print(prods)
-sales= get_data("sales")
-print(sales)
+# prods= get_data("products")
+# print(prods)
+# sales= get_data("sales")
+# print(sales)
 
 
 #use the function by calling it as below; prods= get_data("products"), sales= get_data("sales"), #prints(prods)
 #create a repository called sales_system 
 
 #you can use string formating on cursor.execute(f"select * from {p}")
-conn=psycopg2.connect(database="my_duka", user='postgres', password='@Carol#2023',host='localhost', port= '5432')
+
 def insert_data(table_name,columns, values):
     try:
         cursor = conn.cursor()
@@ -74,9 +52,9 @@ def insert_data(table_name,columns, values):
         print(f"Failed to insert into {table_name}: {error}")
     finally:
         conn.close()
-columns= ('productname', 'buying_price', 'selling_price', 'stock_quantity')
-values= ('maize', 120, 220, 500)
+# columns= ('productname', 'buying_price', 'selling_price', 'stock_quantity')
+# values= ('maize', 120, 220, 500)
 
-insert_data('sales', columns, values)
-conn.close()
+# insert_data('products', columns, values)
+# conn.close()
 
