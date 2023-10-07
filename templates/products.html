@@ -31,6 +31,25 @@
       </nav>
     <div class="container">
       <!-- {{myprods}} -->
+      <form action="/insert_product" method="post">
+        <div class="mb-3">
+          <label for="productname" class="form-label">productname</label>
+          <input type="text" name="productname" class="form-control" id="exampleInputproductname" aria-describedby="emailHelp"required>
+        </div>
+        <div class="mb-3">
+          <label for="buying_price" class="form-label">buying_price</label>
+          <input type="number" name="buying_price" class="form-control" id="exampleInputPassword1"  required>
+        </div>
+        <div class="mb-3">
+          <label for="selling_price" class="form-label">selling_price</label>
+          <input type="number" name="selling_price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"required>
+        </div>
+        <div class="mb-3">
+          <label for="stock_quantity" class="form-label">stock_quantity</label>
+          <input type="number" name="stock_quantity" class="form-control" id="exampleInputPassword1"required>
+        </div> 
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
       <table class="table", id='myTable'>
         <thead>
           <tr>
