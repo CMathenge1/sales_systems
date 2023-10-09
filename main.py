@@ -3,6 +3,7 @@ from dbservice import get_data
 from dbservice import ins_product, calculate_profit
 from dbservice import insert_sale, create_users, check_email_exists, email_password_match
 app=Flask(__name__)
+app.secret_key= "Carol"
 
 
 # def login_check():
@@ -57,24 +58,28 @@ def insert_sales():
 
 @app.route("/register", methods=["Post","get"])
 def register():
-    full_name= request.form ["full_name"]
-    email= request.form ["email"]
-    password= request.form ["password"]
-    create_users(full_name,email,password)
-
-    if not check_email_exists(email):
+    if request.method== "POST":
+        full_name= request.form ["full_name"]
+        email= request.form ["email"]
+        password= request.form ["password"]
         create_users(full_name,email,password)
-        return redirect("/login")
-    else:
-        flash("email already exists")
-        return redirect ("/login")
+        
+
+        if not check_email_exists(email):
+            create_users(full_name,email,password)
+            return redirect("/login")
+        else:
+            flash("email already exists")
+            return redirect ("/login")
+    return render_template("login.html")
+
     
 @app.route("/login", methods=["Post","get"])
 def login():
     # session['email']= request.form['email']
     # return render_template("/dashboard")
     
-    if request.method== "Post":
+    if request.method== "POST":
         email= request.form ["email"]
         password= request.form["password"]
         user_id= email_password_match(email, password)
